@@ -155,7 +155,7 @@ def Login():
     return render_template(
         'login.html', 
         form=form, 
-        title='Login to data analysis',
+        title='Login to analyze data!',
         year=datetime.now().year,
         repository_name='Pandas',
         )
