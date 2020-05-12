@@ -238,7 +238,7 @@ def DataQuery():
         'DataQuery.html', 
          form = form,
          chart = chart,
-         title='Query by the user',
+         title='Login Succesful! please select to analyze',
          year=datetime.now().year,
          message='This page will use the web forms to get user input'
 
