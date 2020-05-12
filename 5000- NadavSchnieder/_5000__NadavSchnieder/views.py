@@ -6,7 +6,7 @@ from datetime import datetime
 from flask import render_template
 from _5000__NadavSchnieder import app
 import pandas as pd 
-
+from flask import render_template, redirect, request
 from _5000__NadavSchnieder.Models.LocalDatabaseRoutines import create_LocalDatabaseServiceRoutines
 
 
@@ -86,7 +86,7 @@ def DataModel():
 @app.route('/Dataset1')
 def Dataset1():
     """Renders the contact page."""
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static/Data/GlobalLandTemperaturesByMajorCity.csv'),low_memory= False)
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/Data/GlobalLandTemperaturesByMajorCity (003) (1).csv'),low_memory= False)
     raw_data_table = df.to_html(classes = 'table table-hover')
    
 
@@ -147,10 +147,9 @@ def Login():
 
     if (request.method == 'POST' and form.validate()):
         if (db_Functions.IsLoginGood(form.username.data, form.password.data)):
-            flash('Login approved!')
-            #return redirect('DataQuery')
+            return redirect('DataQuery')
         else:
-            flash('Error')
+            flash('Error, please try again')
    
     return render_template(
         'login.html', 
@@ -169,40 +168,46 @@ def DataQuery():
     chart = ''
     form = ''
 
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static/Data/GlobalLandTemperaturesByMajorCity.csv'))
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/Data/GlobalLandTemperaturesByMajorCity (003) (1).csv'))
 
     form = DataQueryFormStructure(request.form)
 
 
     raw_data_table = df.to_html(classes = 'table table-hover')
-
-    form.countries.choices = get_country_choices() 
+    form.countries.choices = get_country_choices()         
+    country_list = form.countries.data
      
     if (request.method == 'POST' ):
+       
         df = df[['City', 'Country', 'AverageTemperature','dt']]
 
         df['dt'] = df['dt'].apply(lambda x:get_year(x)) #uses the "get_year" to get the year by checking the places before and after the hyphen, and puts the values in a list
         df['dt'] = df['dt'].astype(int) 
 
-        df = df[df['dt']>1950]
+        df = df[df['dt']>1920]
+        df1 = df[df['Country'] == 'Côte D\'Ivoire']
         df1 = df.set_index('Country')
         df1 = df1.groupby('dt').mean()
+
  
     
     
 
 
-        form.countries.choices = get_country_choices()         
-        country_list = form.countries.data
+        
         df1 = df1.rename(columns = {'AverageTemperature': 'Côte D\'Ivoire'}) 
         df1 = df1.drop('Côte D\'Ivoire',1) 
     
         for country in country_list: 
-             df2 = df[df['Country'] == country]
-             df2 = df2.set_index('Country')
-             df2 = df2.groupby('dt').mean()
-             df1[country] = df2['AverageTemperature'] #T#השורה הראשונה משאירה בעמודה 'country' רק את המדינות של המשתמש, השורה השנייה עושה אותן האינדקס, השורה השלישית עושה ממוצע שנתי לכל הטמפ', והשורה הרביעית מכניסה עמודות בשם של מדינות המשתמש עם ערכים של טמפ' עובר על כל שנה בשביל כל מדינה שהמשתמש בוחר, ומכניס את זה לדטהפריים כאשר העמודות בשם של 
-   
+            df2 = df[df['Country'] == country]
+            df2 = df2.set_index('Country')
+            df2 = df2.sort_values(by = 'dt')
+            df2 = df2.groupby('dt').mean()
+            df2 = df2.rename(columns = {'AverageTemperature': country})
+            df1[country] = df2[country] #T#השורה הראשונה משאירה בעמודה 'country' רק את המדינות של המשתמש, השורה השנייה עושה אותן האינדקס, השורה השלישית עושה ממוצע שנתי לכל הטמפ', והשורה הרביעית מכניסה עמודות בשם של מדינות המשתמש עם ערכים של טמפ' עובר על כל שנה בשביל כל מדינה שהמשתמש בוחר, ומכניס את זה לדטהפריים כאשר העמודות בשם של 
+          
+     
+         
         df1 = df1.fillna(value = 0)
 
 

@@ -9,6 +9,7 @@ from matplotlib.figure import Figure
 import base64
 import datetime
 import io
+import re
 from os import path
 
 # -------------------------------------------------------------------------------
@@ -75,16 +76,14 @@ def Convert_StateCode_ToFullName(df):
 
 
 def get_country_choices():
-    df_short_state = pd.read_csv(path.join(path.dirname(__file__), "..\\static\\Data\\GlobalLandTemperaturesByMajorCity.csv"))
+    df_short_state = pd.read_csv(path.join(path.dirname(__file__), "..\\static\\Data\\GlobalLandTemperaturesByMajorCity (003) (1).csv"))
     s = df_short_state.set_index('Country')
     df1 = df_short_state.groupby('Country').sum()
-    #df_short_state = df_short_state.set_index('Code')
-    #df_short_state = df_short_state.sort_index()
     l = df1.index
     m = list(zip(l , l))
     return m
 
 def get_year(str):
-    l = str.split('-')
+    l = re.split('[- /]' ,str)
     return l[0]
 

@@ -3,7 +3,7 @@
 ### --- include all software packages and libraries needed ---- ###
 ### ----------------------------------------------------------- ###
 from datetime import datetime
-
+from flask import render_template, redirect, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectMultipleField
 from wtforms import Form, BooleanField, PasswordField
@@ -39,7 +39,6 @@ class QueryFormStructure(FlaskForm):
 class LoginFormStructure(FlaskForm):
     username   = StringField('Username:  ' , validators = [DataRequired('Username incorrect')])
     password   = PasswordField('Password:  ' , validators = [DataRequired('Password incorrect')])
-    email = TextField('Email: ', validators = [DataRequired('Email incorrect')])
 
     submit = SubmitField('Submit')
 
@@ -79,14 +78,7 @@ class UserRegistrationFormStructure(FlaskForm):
 #    submit = SubmitField('Submit')
 
 class DataQueryFormStructure(FlaskForm):
-    countries = SelectMultipleField('Select Multiple:' )
-    #start_date = DateField('Start Date:' , format='%Y-%m-%d' )
-    #end_date   = DateField('End   Date:' , format='%Y-%m-%d' )
-    #kind = SelectField('Chart Kind' , choices=[('line', 'line'), ('bar', 'bar')])
-    #states = SelectMultipleField('Select Multiple:', validators = [DataRequired] )
-    #start_date = DateField('Start Date:' , format='%Y-%m-%d' , validators = [DataRequired])
-    #end_date   = DateField('End   Date:' , format='%Y-%m-%d' , validators = [DataRequired])
-    #kind = SelectField('Chart Kind' , validators = [DataRequired] , choices=[('line', 'line'), ('bar', 'bar')])
+    countries = SelectMultipleField('Please Select Countries analyze:' )
     submit = SubmitField('Submit')
 
 
