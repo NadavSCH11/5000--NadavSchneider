@@ -57,9 +57,8 @@
     <Content Include="_5000__NadavSchnieder\static\content\bootstrap.css" />
     <Content Include="_5000__NadavSchnieder\static\content\bootstrap.min.css" />
     <Content Include="_5000__NadavSchnieder\static\content\site.css" />
-    <Content Include="_5000__NadavSchnieder\static\Data\GlobalLandTemperaturesByMajorCity %28003%29 %281%29.csv" />
+    <Content Include="_5000__NadavSchnieder\static\Data\GlobalLandTemperaturesByMajorCity.csv" />
     <Content Include="_5000__NadavSchnieder\static\Data\users.csv" />
-    <Content Include="_5000__NadavSchnieder\static\Data\waves.csv" />
     <Content Include="_5000__NadavSchnieder\static\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="_5000__NadavSchnieder\static\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="_5000__NadavSchnieder\static\fonts\glyphicons-halflings-regular.ttf" />
@@ -87,7 +86,6 @@
     <Content Include="_5000__NadavSchnieder\templates\DataModel.html" />
     <Content Include="_5000__NadavSchnieder\templates\register.html" />
     <Content Include="_5000__NadavSchnieder\templates\Dataset1.html" />
-    <Content Include="_5000__NadavSchnieder\templates\Dataset2.html" />
     <Content Include="_5000__NadavSchnieder\templates\Login.html" />
   </ItemGroup>
   <ItemGroup>

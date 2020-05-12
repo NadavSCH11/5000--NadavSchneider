@@ -78,7 +78,7 @@ class UserRegistrationFormStructure(FlaskForm):
 #    submit = SubmitField('Submit')
 
 class DataQueryFormStructure(FlaskForm):
-    countries = SelectMultipleField('Please Select Countries analyze:' )
+    countries = SelectMultipleField('Please Select Countries analyze:' , validators = [DataRequired()] )
     submit = SubmitField('Submit')
 
 
