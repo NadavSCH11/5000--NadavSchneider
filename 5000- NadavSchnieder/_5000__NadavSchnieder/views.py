@@ -34,7 +34,6 @@ from wtforms import TextField, TextAreaField, SubmitField, SelectField, DateFiel
 from wtforms import ValidationError
 #------------------------------------------------------------------------
 
-from _5000__NadavSchnieder.Models.QueryFormStructure import QueryFormStructure 
 from _5000__NadavSchnieder.Models.QueryFormStructure import LoginFormStructure 
 from _5000__NadavSchnieder.Models.QueryFormStructure import UserRegistrationFormStructure 
 from _5000__NadavSchnieder.Models.QueryFormStructure import DataQueryFormStructure 
