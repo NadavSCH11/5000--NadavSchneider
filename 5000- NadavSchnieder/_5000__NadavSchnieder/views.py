@@ -180,7 +180,6 @@ def DataQuery():
     form.countries.choices = get_country_choices()         
     country_list = form.countries.data
 
-    raw_data_table = df.sample(20).to_html(classes = 'table table-hover')
  
      
     if (request.method == 'POST' ):
